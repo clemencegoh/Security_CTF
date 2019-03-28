@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Security CTF</title>
+
+    <!-- CSS here -->
+    <link rel="stylesheet" type="text/css" href="static/css/index.css">
 </head>
 <body>
-    <div>
-        <p>
-            {{ ciphertext | safe }}
-        </p>
+    <div class="overall-wrapper">
+        <!--<h1>Here's a hint!</h1>-->
+        <!--<a href="/next/1200"></a>-->
+        <div>
+            <p>
+                {{ ciphertext | safe }}
+            </p>
+        </div>
+        <div>
+            <form action="/database">
+                <label for="query">Search Database</label>
+                <input type="text" name="query" id="query">
+                <input type="submit" value="Search">
+            </form>
+        </div>
     </div>
-    <div>
-        <form action="/database">
-            <label for="query">Search Database</label>
-            <input type="text" name="query" id="query">
-            <input type="submit" value="Search">
-        </form>
-    </div>
+
 </body>
 </html>
