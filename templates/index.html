@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Security CTF</title>
+</head>
+<body>
+    <div>
+        <p>
+            {{ ciphertext | safe }}
+        </p>
+    </div>
+    <div>
+        <form action="/database">
+            <label for="query">Search Database</label>
+            <input type="text" name="query" id="query">
+            <input type="submit" value="Search">
+        </form>
+    </div>
+</body>
+</html>
