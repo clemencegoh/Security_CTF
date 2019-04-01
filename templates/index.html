@@ -17,11 +17,27 @@
             </p>
         </div>
         <div>
-            <form action="/database">
-                <label for="query">Search Database</label>
-                <input type="text" name="query" id="query">
-                <input type="submit" value="Search">
+            <form action="/" class="main-form" method="post">
+                <h2 class="db-search-label">Search Database</h2>
+                <div class="db-field-label">
+                    <label for="tablename" style="flex: 1;">Table Name</label>
+                    <input type="text" name="tablename" id="tablename" value="adam" style="flex: 1;">
+                </div>
+                <div class="db-field-label">
+                    <label for="imagename" style="flex: 1;">Image Name</label>
+                    <input type="text" name="imagename" id="imagename" style="flex: 1;">
+                </div>
+                <div class="db-submit">
+                    <input type="submit" value="Search" class="search-submit">
+                </div>
             </form>
+        </div>
+        <div class="image-block">
+            <img src="{{ imagepath | safe }}" class="image-self">
+            <div class="image-misc">
+                <h2>{{ imagename | safe }}</h2>
+                <span>{{ description | safe }}</span>
+            </div>
         </div>
     </div>
 

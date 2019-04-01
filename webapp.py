@@ -9,13 +9,8 @@ DATA_PATH = "./static/data"
 
 
 def connectDB():
-    return sqlite3.connect(DB_PATH)
-
-
-def createTables():
-    conn = connectDB()
-    cur = conn.cursor()
-    cur.execute("")
+    conn = sqlite3.connect(DB_PATH)
+    return conn.cursor()
 
 
 def createCipherText(key, text):
@@ -25,23 +20,45 @@ def createCipherText(key, text):
     :param text: plaintext used
     :return: Ciphertext
     """
-    return "hello world!"
+    return "Cipher_Text_Here"
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
+    imagepath = ""
+    imagename = ""
+    description = ""
+
+    if request.method == "POST":
+        tablename = request.form['tablename']
+        imagename = request.form['imagename']
+
+        print('received:', tablename, imagename)
+        c = connectDB()
+        try:
+            c.execute('''SELECT * FROM {} WHERE name='{}'; '''.format(tablename, imagename))
+            query = c.fetchone()
+            print(query)
+            imagename = query[1]
+            imagepath = query[2]
+            description = query[3]
+        except:
+            imagename = "Oh no"
+            imagepath = "/static/data/ohno.png"
+            description = "Something went wrong"
+
+    print('imagepath:', imagepath)
+
     return render_template('index.html',
-                           ciphertext=createCipherText("", ""))
+                           ciphertext=createCipherText("", ""),
+                           imagepath=imagepath,
+                           imagename=imagename,
+                           description=description)
 
 
 @app.route('/addstuff/<stuff>', methods=['GET'])
 def addStuff_test(stuff):
     return str(stuff)
-
-
-@app.route('/database', methods=['POST'])
-def searchDB():
-    return ""
 
 
 @app.route('/test', methods=['GET'])
@@ -60,5 +77,12 @@ def getNext(number):
     return BASIC_STRING
 
 
+def checkDB():
+    c = connectDB()
+    c.execute(''' SELECT * FROM adam; ''')
+    print(c.fetchall())
+
+
 if __name__=='__main__':
+    checkDB()
     app.run(port='8080')
