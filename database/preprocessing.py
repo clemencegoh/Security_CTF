@@ -71,7 +71,7 @@ def insertData():
     # Insert into table here
     content = [(0, 'maybe', '/static/data/maybe_neigh.jpg', "I'm fabulous"),
                (1, 'clemence', '/static/data/clemence.png', 'HELLUUUU ITS ME'),
-               (2, 'another', '/static', 'another new')
+               (2, 'illusion', '/static/data/illusion.png', 'Do you really see me?')
                ]
 
     c.executemany('INSERT INTO adam values (?,?,?,?)', content)
