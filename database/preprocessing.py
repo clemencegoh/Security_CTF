@@ -6,12 +6,14 @@ DB_PATH = "./database.db"
 
 
 def createConn():
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
-    return c
+    return sqlite3.connect(DB_PATH)
 
 
 def Preprocess():
+    """
+    Example only, not meant to be used
+    """
+
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
 
@@ -39,8 +41,27 @@ def Preprocess():
     c.executemany('INSERT INTO stocks VALUES (?,?,?,?,?)', purchases)
 
 
-def experimental():
-    c = createConn()
+def cleanup(tables):
+    """
+    Used to clean up the database
+    """
+    conn = createConn()
+    c = conn.cursor()
+    for i in tables:
+        c.execute('''DELETE FROM {};'''.format(i))
+    conn.commit()
+
+    # checking
+    for i in tables:
+        c.execute('''SELECT * FROM {}; '''.format(i))
+        items = c.fetchall()
+        if items != []:
+            print('not empty for table {}, {}'.format(i, items))
+
+
+def insertData():
+    conn = createConn()
+    c = conn.cursor()
 
     # create table
     c.execute('''CREATE TABLE IF NOT EXISTS adam
@@ -48,17 +69,21 @@ def experimental():
     ''')
 
     # Insert into table here
-    content = [(0, 'clemence', '/static/data/clemence.png', 'ITS ME HELLUUU'),
-               (1, 'new name', '/static', '2 brief')
+    content = [(0, 'maybe', '/static/data/maybe_neigh.jpg', "I'm fabulous"),
+               (1, 'clemence', '/static/data/clemence.png', 'HELLUUUU ITS ME'),
+               (2, 'another', '/static', 'another new')
                ]
 
     c.executemany('INSERT INTO adam values (?,?,?,?)', content)
+    conn.commit()
+
 
     # fetch table and print
-    c.execute(''' SELECT * FROM adam WHERE name='clemence'; ''')
+    c.execute(''' SELECT * FROM adam; ''')
     print(c.fetchall())
 
 
 if __name__ == '__main__':
     # Preprocess()
-    experimental()
+    insertData()
+    # cleanup(['adam'])

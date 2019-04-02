@@ -34,14 +34,15 @@ def home():
         imagename = request.form['imagename']
 
         print('received:', tablename, imagename)
-        c = connectDB()
         try:
+            c = connectDB()
             c.execute('''SELECT * FROM {} WHERE name='{}'; '''.format(tablename, imagename))
             query = c.fetchone()
             print(query)
             imagename = query[1]
             imagepath = query[2]
             description = query[3]
+
         except:
             imagename = "Oh no"
             imagepath = "/static/data/ohno.png"
@@ -54,16 +55,6 @@ def home():
                            imagepath=imagepath,
                            imagename=imagename,
                            description=description)
-
-
-@app.route('/addstuff/<stuff>', methods=['GET'])
-def addStuff_test(stuff):
-    return str(stuff)
-
-
-@app.route('/test', methods=['GET'])
-def testDB():
-    return ""
 
 
 ############# Fun Red Herrings #########################
@@ -84,5 +75,5 @@ def checkDB():
 
 
 if __name__=='__main__':
-    checkDB()
+    # checkDB()
     app.run(port='8080')
