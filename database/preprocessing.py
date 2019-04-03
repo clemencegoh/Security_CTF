@@ -64,26 +64,62 @@ def insertData():
     c = conn.cursor()
 
     # create table
-    c.execute('''CREATE TABLE IF NOT EXISTS adam
-                (id real, name text, path text, description text)
+    c.execute('''CREATE TABLE IF NOT EXISTS rick
+                (name text, path text)
     ''')
 
-    # Insert into table here
-    content = [(0, 'maybe', '/static/data/maybe_neigh.jpg', "I'm fabulous"),
-               (1, 'clemence', '/static/data/clemence.png', 'HELLUUUU ITS ME'),
-               (2, 'illusion', '/static/data/illusion.png', 'Do you really see me?')
-               ]
+    content = []
+    with open('images.txt', 'r') as imagefile:
+        with open('names.txt', 'r') as namefile:
+            images = imagefile.readlines()
+            names = namefile.readlines()
+            for i in range(len(images)):
+                content.append((names[i].strip().lower(), images[i].strip()))
 
-    c.executemany('INSERT INTO adam values (?,?,?,?)', content)
+    # Insert into table here
+    c.executemany('INSERT INTO rick values (?,?)', content[0:int(len(images)/2)])
     conn.commit()
 
 
+    # custom images here
+    custom = [
+        ('morty', 'static/data/Morty.jpg'),
+        ('maybe', 'static/data/maybe_neigh.jpg'),
+        ('union', 'static/data/union.jpg'),
+        ('hint', 'static/data/next_hint.jpg'),
+
+    ]
+
+    c.executemany('INSERT INTO rick values (?,?)', custom)
+    conn.commit()
+
+    c.executemany('INSERT INTO rick values (?,?)', content[int(len(images) / 2):int(len(images)/2) + 1])
+    conn.commit()
+
+    # final image for steg
+    c.execute('''CREATE TABLE IF NOT EXISTS morty
+                    (name text, path text)
+        ''')
+    finalImage = [('illusion', 'static/data/illusion.png')]
+    c.executemany('INSERT INTO morty values (?,?)', finalImage)
+    conn.commit()
+
     # fetch table and print
-    c.execute(''' SELECT * FROM adam; ''')
+    c.execute(''' SELECT * FROM rick where name='velvet'; ''')
+    print(len(c.fetchall()))
+
+
+def trying():
+    conn = createConn()
+    c = conn.cursor()
+    c.execute(''' SELECT * FROM rick where name='velvet'; ''')
     print(c.fetchall())
+
 
 
 if __name__ == '__main__':
     # Preprocess()
+    cleanup(['rick', 'morty'])
     insertData()
-    # cleanup(['adam'])
+
+    # trying()

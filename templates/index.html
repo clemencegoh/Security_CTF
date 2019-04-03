@@ -12,7 +12,7 @@
         <!--<h1>Here's a hint!</h1>-->
         <!--<a href="/next/1200"></a>-->
         <div>
-            <p class="keylength 5">
+            <p class="keylength 5" hidden>
                 {{ ciphertext | safe }}
             </p>
             <a href="static/copypasta_encrypted.txt" download>Download File Here</a>
@@ -35,10 +35,7 @@
         </div>
         {% for item in query %}
         <div class="image-block">
-            <img src="{{ item[2] }}" class="image-self">
-            <div class="image-misc">
-                <span>{{ item[3] }}</span>
-            </div>
+            <img src="{{ item[1] }}" class="image-self">
         </div>
         {% endfor %}
     </div>

@@ -45,28 +45,26 @@ def home():
                 raise ValueError
 
             c.execute('''SELECT * 
-                         FROM adam WHERE name='{}' '''.format(imagename))
+                         FROM rick WHERE name LIKE '{}%' '''.format(imagename))
             query = c.fetchall()
+            if len(query) > 10:
+                query = query[0:10]
             print(query)
 
         except ValueError:
-            query = [(0.0,
-                      "dropping?",
-                      "/static/data/no_drop.png",
-                      "Nice try BIIIIIIIIIIIII")]
+            query = [("dropping?","/static/data/no_drop.png")]
 
         except Exception as e:
             print(e)
-            query = [(0.0,
-                      "Oh no",
-                      "/static/data/ohno.png",
-                      "Image not found"
-                      )]
+            query = [("/static/data/ohno.png","Image not found")]
 
+    ct = ""
     with open('copypasta.txt', 'r') as file:
-        return render_template('index.html',
-                               ciphertext=createCipherText("MORTY", file.read()),
-                               query=query)
+        ct = createCipherText("MORTY", file.read())
+
+    return render_template('index.html',
+                           ciphertext=ct,
+                           query=query)
 
 
 ############# Fun Red Herrings #########################
