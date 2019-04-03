@@ -11,6 +11,11 @@
     text-align: center;
 }
 
+.keylength{
+    width: 80vw;
+    overflow-wrap: break-word;
+}
+
 .db-field-label{
     display: flex;
 }

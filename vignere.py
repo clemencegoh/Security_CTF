@@ -50,8 +50,8 @@ def vignere(plaintext: bytes, key: bytes, mode: str = "e") -> bytes:
     return ciphertext
 
 x = vignere(b"\x01abcdefg ", b"\x06\xfe\x04\x03\x02")
-print(x)
-print(vignere(x, b"\x06\xfe\x04\x03\x02", "d"))
+# print(x)
+# print(vignere(x, b"\x06\xfe\x04\x03\x02", "d"))
 
 
 # with open("week3/writeup.pdf", "rb") as f:
@@ -83,4 +83,5 @@ def freq_analysis(text: bytes) -> Dict[bytes, int]:
     sorted_counts = sorted(counts.items(), key=lambda x: x[1], reverse=True)
     return sorted_counts
 
-print(freq_analysis(b"abcacdddlkfoweilnaa"))
+# print(freq_analysis(b"abcacdddlkfoweilnaa"))
+print(vignere(b'hello world!!!!! Nothing to see here', b'TABLE2'))

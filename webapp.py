@@ -2,6 +2,8 @@ from flask import Flask, request, abort, send_file, send_from_directory, render_
 import os
 import sqlite3
 import random
+import os
+from vignere import vignere
 
 app = Flask(__name__, static_url_path='/static')
 DB_PATH = "./database/database.db"
@@ -20,41 +22,51 @@ def createCipherText(key, text):
     :param text: plaintext used
     :return: Ciphertext
     """
-    return "Cipher_Text_Here"
+    file_content = vignere(text.encode(), key.encode())
+    if not os.path.isfile('static/copypasta_encrypted.txt'):
+        print('writing...')
+        with open('static/copypasta_encrypted.txt', 'wb') as f:
+            f.write(file_content)
+    return file_content
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    imagepath = ""
-    imagename = ""
-    description = ""
+    query = ""
 
     if request.method == "POST":
-        tablename = request.form['tablename']
+        # tablename = request.form['tablename']
         imagename = request.form['imagename']
 
-        print('received:', tablename, imagename)
+        print('received:', imagename)
         try:
             c = connectDB()
-            c.execute('''SELECT * FROM {} WHERE name='{}'; '''.format(tablename, imagename))
-            query = c.fetchone()
+            if "drop" in imagename.lower():
+                raise ValueError
+
+            c.execute('''SELECT * 
+                         FROM adam WHERE name='{}' '''.format(imagename))
+            query = c.fetchall()
             print(query)
-            imagename = query[1]
-            imagepath = query[2]
-            description = query[3]
 
-        except:
-            imagename = "Oh no"
-            imagepath = "/static/data/ohno.png"
-            description = "Something went wrong"
+        except ValueError:
+            query = [(0.0,
+                      "dropping?",
+                      "/static/data/no_drop.png",
+                      "Nice try BIIIIIIIIIIIII")]
 
-    print('imagepath:', imagepath)
+        except Exception as e:
+            print(e)
+            query = [(0.0,
+                      "Oh no",
+                      "/static/data/ohno.png",
+                      "Image not found"
+                      )]
 
-    return render_template('index.html',
-                           ciphertext=createCipherText("", ""),
-                           imagepath=imagepath,
-                           imagename=imagename,
-                           description=description)
+    with open('copypasta.txt', 'r') as file:
+        return render_template('index.html',
+                               ciphertext=createCipherText("MORTY", file.read()),
+                               query=query)
 
 
 ############# Fun Red Herrings #########################
