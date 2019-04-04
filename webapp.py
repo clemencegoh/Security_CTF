@@ -49,7 +49,7 @@ def home():
             query = c.fetchall()
             if len(query) > 10:
                 query = query[0:10]
-            print(query)
+            # print(query)
 
         except ValueError:
             query = [("dropping?","/static/data/no_drop.png")]

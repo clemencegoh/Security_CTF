@@ -25,11 +25,11 @@
 }
 
 .image-self{
-    width: 80vw;
+    max-width: 80vw;
 }
 
 .image-block{
-    height: 50vh;
+    max-height: 50vh;
     text-align: center;
     display: flex;
     border: 2px solid;
