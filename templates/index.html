@@ -6,6 +6,8 @@
 
     <!-- CSS here -->
     <link rel="stylesheet" type="text/css" href="static/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <body>
     <div class="overall-wrapper">
@@ -15,7 +17,7 @@
             <p class="keylength 5" hidden>
                 {{ ciphertext | safe }}
             </p>
-            <a href="static/copypasta_encrypted.txt" download>Download File Here</a>
+            <a class="btn waves-effect waves-light" href="static/copypasta_encrypted.txt" download style="margin-top: 60px">Download Ciphertext Here</a>
         </div>
         <div id="main">
             <form action="/" class="main-form" method="post">
@@ -24,12 +26,12 @@
                     <!--<label for="tablename" style="flex: 1;">Table Name</label>-->
                     <!--<input type="text" name="tablename" id="tablename" value="adam" style="flex: 1;">-->
                 <!--</div>-->
-                <div class="db-field-label">
+                <div class="input-field db-field-label">
                     <label for="imagename" style="flex: 1;">Image Name</label>
                     <input type="text" name="imagename" id="imagename" style="flex: 1;">
                 </div>
                 <div class="db-submit">
-                    <input type="submit" value="Search" class="search-submit">
+                    <button class="btn waves-effect waves-light search-submit" type="submit" name="action">Submit</button>
                 </div>
             </form>
 
