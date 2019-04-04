@@ -25,13 +25,14 @@
 }
 
 .image-self{
-    max-width: 80vw;
+    width: 100%;
+    display: block;
+    height: auto;;
 }
 
 .image-block{
-    max-height: 50vh;
+    width: 30vw;
     text-align: center;
-    display: flex;
     border: 2px solid;
     margin: 20px 0;
 }
