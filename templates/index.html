@@ -17,7 +17,7 @@
             </p>
             <a href="static/copypasta_encrypted.txt" download>Download File Here</a>
         </div>
-        <div>
+        <div id="main">
             <form action="/" class="main-form" method="post">
                 <h2 class="db-search-label">Search Database</h2>
                 <!--<div class="db-field-label">-->
@@ -32,7 +32,12 @@
                     <input type="submit" value="Search" class="search-submit">
                 </div>
             </form>
+
         </div>
+
+		{% if query|length > 0 %}
+        <div>Showing up to first 10 results</div>		
+		{% endif%}
         {% for item in query %}
         <div class="image-block">
             <img src="{{ item[1] }}" class="image-self">
