@@ -1,3 +1,6 @@
+﻿The flag has been encoded and hidden in an image. 
+Retrieve the image from a database search using the cipher key. 
+The table name you are looking for is the key.
 To be fair, you have to have a very high IQ to understand Rick and Morty.
 The humor is extremely subtle, and without a solid grasp of theoretical
 physics most of the jokes will go over a typical viewer's head.

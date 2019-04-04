@@ -85,7 +85,7 @@ def insertData():
     custom = [
         ('morty', 'static/data/Morty.jpg'),
         ('maybe', 'static/data/maybe_neigh.jpg'),
-        ('union', 'static/data/union.jpg'),
+        ('help', 'static/data/union.jpg'),
         ('hint', 'static/data/next_hint.jpg'),
 
     ]
